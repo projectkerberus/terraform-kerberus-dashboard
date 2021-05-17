@@ -44,6 +44,7 @@ resource "helm_release" "kerberus_dashboard" {
   version    = var.kerberus_dashboard_chart_version
   values     = var.kerberus_dashboard_values_path != "" ? [file(var.kerberus_dashboard_values_path)] : []
 
+  # Argo CD
   set {
     name  = "argocd.baseUrl"
     value = var.argocd_url
@@ -54,21 +55,7 @@ resource "helm_release" "kerberus_dashboard" {
     value = format("argocd.token=%s", var.argocd_token)
   }
 
-  set {
-    name  = "auth.github.clientId"
-    value = var.github_client_id
-  }
-
-  set {
-    name  = "auth.github.clientSecret"
-    value = var.github_client_secrets
-  }
-
-  set {
-    name  = "auth.githubToken"
-    value = var.github_token
-  }
-
+  # K8S
   set {
     name  = "kubernetes.token"
     value = data.kubernetes_secret.retreive_kerberus_dashboard_service_account_token.data["token"]
@@ -78,4 +65,24 @@ resource "helm_release" "kerberus_dashboard" {
     name  = "kubernetes.url"
     value = var.kerberus_k8s_endpoint
   }
+
+  # Github
+  dynamic "set" {
+    for_each = var.github_client_id != "" && var.github_client_secrets != "" && var.github_token != "" ? { "auth.github.clientId" : var.github_client_id,
+    "auth.github.clientSecret" : var.github_client_secrets, "auth.githubToken" : var.github_token } : {}
+    content {
+      name  = set.key
+      value = set.value
+    }
+  }
+
+  # Gitlab
+  dynamic "set" {
+    for_each = var.gitlab_token != "" ? { "auth.gitlabToken" : var.gitlab_token } : {}
+    content {
+      name  = set.key
+      value = set.value
+    }
+  }
+
 }

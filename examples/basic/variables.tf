@@ -28,22 +28,4 @@ variable "ARGOCD_TOKEN" {
   default     = "my_token"
 }
 
-variable "GITHUB_CLIENT_ID" {
-  description = "Github OAuth Apps client id"
-  type        = string
-  default     = "my_client_id"
-}
-
-variable "GITHUB_CLIENT_SECRETS" {
-  description = "Github OAuth Apps client secrets"
-  type        = string
-  default     = "my_client_secrets"
-}
-
-variable "GITHUB_TOKEN" {
-  description = "Github personal access token, please see: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token"
-  type        = string
-  default     = "my_token"
-}
-
 
