@@ -52,14 +52,23 @@ variable "kerberus_dashboard_values_path" {
 variable "github_client_id" {
   description = "Github OAuth Apps client id"
   type        = string
+  default     = ""
 }
 
 variable "github_client_secrets" {
   description = "Github OAuth Apps client secrets"
   type        = string
+  default     = ""
 }
 
 variable "github_token" {
   description = "Github personal access token, please see: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token"
   type        = string
+  default     = ""
+}
+
+variable "gitlab_token" {
+  description = "GitLab personal access token, please see: https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token"
+  type        = string
+  default     = ""
 }
