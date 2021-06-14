@@ -1,6 +1,8 @@
 # Terraform Kerberus Dashboard
 
-Terraform module which creates deploy the Kerberus Dashboard on your Kubernates cluster.
+Terraform module which deploys the Kerberus Dashboard on your Kubernetes cluster.
+
+> This module is part of the [Kerberus Platform](https://github.com/projectkerberus/kerberus-platform)  
 
 ## Usage
 
@@ -72,7 +74,7 @@ No modules.
 No outputs.
 ## Authors
 
-Module is maintained by [Kiratech](https://www.kiratech.it/) with help from [these awesome contributors](https://github.com/projectkerberus/terraform-kerberus-dashboard/graphs/contributors).
+The module is maintained by [Kiratech](https://www.kiratech.it/) with help from [these awesome contributors](https://github.com/projectkerberus/terraform-kerberus-dashboard/graphs/contributors).
 
 ## License
 
