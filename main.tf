@@ -36,6 +36,28 @@ data "kubernetes_secret" "retreive_kerberus_dashboard_service_account_token" {
   }
 }
 
+locals {
+  github_app_credentials_file = templatefile(join("/", [path.module, "./files/github-app-credentials.yaml.tpl"]), {
+    appId         = var.github_app_id,
+    webhookUrl    = var.github_app_webhook_url,
+    clientId      = var.github_app_client_id,
+    clientSecret  = var.github_app_client_secret,
+    webhookSecret = var.github_app_webhook_secret,
+    privateKey    = var.github_app_private_key
+  })
+}
+
+resource "kubernetes_secret" "github_app_credentials" {
+  metadata {
+    name      = "github-app-credentials"
+    namespace = kubernetes_namespace.kerberus_dashboard_namespace.metadata[0].name
+  }
+
+  data = {
+    "github-app-credentials" = local.github_app_credentials_file
+  }
+}
+
 resource "helm_release" "kerberus_dashboard" {
   name       = "kerberus-dashboard"
   namespace  = kubernetes_namespace.kerberus_dashboard_namespace.metadata[0].name
