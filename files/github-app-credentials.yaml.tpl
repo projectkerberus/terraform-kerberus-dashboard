@@ -3,4 +3,5 @@ webhookUrl: ${webhookUrl}
 clientId: ${clientId}
 clientSecret: ${clientSecret}
 webhookSecret: ${webhookSecret}
-privateKey: ${privateKey}
+privateKey: |
+  ${indent(2, privateKey)}
