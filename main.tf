@@ -91,7 +91,7 @@ resource "helm_release" "kerberus_dashboard" {
   # Github
   dynamic "set" {
     for_each = var.github_client_id != "" && var.github_client_secrets != "" && var.github_token != "" ? { "auth.github.clientId" : var.github_client_id,
-    "auth.github.clientSecret" : var.github_client_secrets, "auth.githubToken" : var.github_token } : {}
+    "auth.github.clientSecret" : var.github_client_secrets, "providers.github.token" : var.github_token } : {}
     content {
       name  = set.key
       value = set.value
