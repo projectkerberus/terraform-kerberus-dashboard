@@ -98,6 +98,16 @@ resource "helm_release" "kerberus_dashboard" {
     }
   }
 
+  # AD
+  dynamic "set" {
+    for_each = var.microsoft_client_id != "" && var.microsoft_client_secrets != "" && var.microsoft_tenantId != "" ? { "providers.microsoft.clientId" : var.microsoft_client_id,
+    "providers.microsoft.clientSecret" : var.microsoft_client_secrets, "providers.microsoft.tenantId" : var.microsoft_tenantId } : {}
+    content {
+      name  = set.key
+      value = set.value
+    }
+  }
+
   # Gitlab
   dynamic "set" {
     for_each = var.gitlab_token != "" ? { "auth.gitlabToken" : var.gitlab_token } : {}
